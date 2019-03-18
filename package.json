@@ -1,0 +1,35 @@
+{
+  "name": "project",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "react": "^16.7.0",
+    "react-dom": "^16.7.0",
+    "parcel-bundler": "^1.11.0",
+    "http-server": "^0.11.1"
+  },
+  "engines": {
+    "npm": "6.4.1",
+    "node": "8.14.0"
+  },
+  "scripts": {
+    "start": "npm run build && http-server dist",
+    "build": "parcel build public/index.html",
+    "serve": "CHOKIDAR_USEPOLLING=true parcel public/index.html --host 0.0.0.0 -p 3000 --hmr-hostname 80.$DOMAIN --hmr-port 80"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ],
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1"
+  }
+}
