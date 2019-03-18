@@ -1,18 +1,24 @@
 import React, { Component } from 'react';
-import { Route } from './components/Route'
+import { Route, Link, history } from './components/Route'
+
 
 
 
 class App extends Component {
+    componentDidMount(){
+        history.listen(()=> this.forceUpdate())
+    }
+
   render() {
+      console.log("test")
     return (
       <div>
         <center>
           <h1>Welcome to BounceCode</h1>
         </center>
 
-         <ul> <li><a href="/atlantic"><code>/atlantic</code></a></li> </ul>
-         <ul> <li><a href="/pacific"><code>/pacific</code></a></li> </ul>
+         <ul> <li><Link to="/atlantic"><code>/atlantic</code></Link></li> </ul>
+         <ul> <li><Link to="/pacific"><code>/pacific</code></Link></li> </ul>
 
 
          <Route path = "/atlantic" component={Atlantic}/>
