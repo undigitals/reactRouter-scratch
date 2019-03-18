@@ -7,7 +7,7 @@ export const history = createHistory();
     const pathname = window.location.pathname;
 
     if(pathname.match(path)){
-        return React.createElement(component);
+        return component();
     }else {
         return null;
     }

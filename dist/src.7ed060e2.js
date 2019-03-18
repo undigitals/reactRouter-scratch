@@ -26877,7 +26877,7 @@ var Route = function Route(_ref) {
   var pathname = window.location.pathname;
 
   if (pathname.match(path)) {
-    return _react.default.createElement(component);
+    return component();
   } else {
     return null;
   }
