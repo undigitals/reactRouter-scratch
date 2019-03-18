@@ -24482,7 +24482,32 @@ if ("development" === 'production') {
 } else {
   module.exports = require('./cjs/react-dom.development.js');
 }
-},{"./cjs/react-dom.development.js":"../node_modules/react-dom/cjs/react-dom.development.js"}],"../src/App.js":[function(require,module,exports) {
+},{"./cjs/react-dom.development.js":"../node_modules/react-dom/cjs/react-dom.development.js"}],"../src/components/Route.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Route = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var Route = function Route(_ref) {
+  var path = _ref.path,
+      component = _ref.component;
+  var pathname = window.location.pathname;
+
+  if (pathname.match(path)) {
+    return _react.default.createElement(component);
+  } else {
+    return null;
+  }
+};
+
+exports.Route = Route;
+},{"react":"../node_modules/react/index.js"}],"../src/App.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -24491,6 +24516,8 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 
 var _react = _interopRequireWildcard(require("react"));
+
+var _Route = require("./components/Route");
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
 
@@ -24526,16 +24553,34 @@ function (_Component) {
   _createClass(App, [{
     key: "render",
     value: function render() {
-      return _react.default.createElement("div", null, _react.default.createElement("center", null, _react.default.createElement("h1", null, "Welcome to BounceCode")));
+      return _react.default.createElement("div", null, _react.default.createElement("center", null, _react.default.createElement("h1", null, "Welcome to BounceCode")), _react.default.createElement("ul", null, " ", _react.default.createElement("li", null, _react.default.createElement("a", {
+        href: "/atlantic"
+      }, _react.default.createElement("code", null, "/atlantic"))), " "), _react.default.createElement("ul", null, " ", _react.default.createElement("li", null, _react.default.createElement("a", {
+        href: "/pacific"
+      }, _react.default.createElement("code", null, "/pacific"))), " "), _react.default.createElement(_Route.Route, {
+        path: "/atlantic",
+        component: Atlantic
+      }), _react.default.createElement(_Route.Route, {
+        path: "/pacific",
+        component: Pacific
+      }));
     }
   }]);
 
   return App;
 }(_react.Component);
 
+var Atlantic = function Atlantic() {
+  return _react.default.createElement("div", null, _react.default.createElement("h3", null, "Atlantic Ocean"), _react.default.createElement("p", null, "The Atlantic Ocean covers approximately 1/5th of the surface of the earth."));
+};
+
+var Pacific = function Pacific() {
+  return _react.default.createElement("div", null, _react.default.createElement("h3", null, "Pacific Ocean"), _react.default.createElement("p", null, "Ferdinand Magellan, a Portuguese explorer, named the ocean 'mar pacifico' in 1521, which means peaceful sea."));
+};
+
 var _default = App;
 exports.default = _default;
-},{"react":"../node_modules/react/index.js"}],"../src/index.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","./components/Route":"../src/components/Route.js"}],"../src/index.js":[function(require,module,exports) {
 "use strict";
 
 var _react = _interopRequireDefault(require("react"));
@@ -24547,7 +24592,7 @@ var _App = _interopRequireDefault(require("./App"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 _reactDom.default.render(_react.default.createElement(_App.default, null), document.getElementById('root'));
-},{"react":"../node_modules/react/index.js","react-dom":"../node_modules/react-dom/index.js","./App":"../src/App.js"}],"../../../../../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-dom":"../node_modules/react-dom/index.js","./App":"../src/App.js"}],"../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -24572,9 +24617,9 @@ module.bundle.Module = Module;
 var parent = module.bundle.parent;
 
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
-  var hostname = "" || location.hostname;
+  var hostname = "80.repo_5c8d4bbde9119e0018ff666a.container.dev.bouncecode.net" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61195" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "80" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
@@ -24716,5 +24761,5 @@ function hmrAccept(bundle, id) {
     return hmrAccept(global.parcelRequire, id);
   });
 }
-},{}]},{},["../../../../../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js","../src/index.js"], null)
+},{}]},{},["../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js","../src/index.js"], null)
 //# sourceMappingURL=/src.7ed060e2.map
