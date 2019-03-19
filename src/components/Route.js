@@ -1,10 +1,10 @@
-import React from 'react'
+import React, {Component} from 'react'
+import PropTypes from "prop-types"
 import {createBrowserHistory} from "history"
 
-export const history = createBrowserHistory();
 
- export const Route = ({path, component}) => {
-    const pathname = window.location.pathname;
+ export const Route = ({path, component}, {location}) => {
+    const pathname = location.pathname;
 
     if(pathname.match(path)){
         return component();
@@ -13,7 +13,7 @@ export const history = createBrowserHistory();
     }
 }
 
-export const Link = ({ to, children }) => (
+export const Link = ({ to, children }, {history}) => (
   <a
     onClick={e => {
       e.preventDefault();
@@ -24,3 +24,44 @@ export const Link = ({ to, children }) => (
     {children}
   </a>
 );
+
+export class Router extends React.Component {
+  static childContextTypes = {
+    history: PropTypes.object,
+    location: PropTypes.object
+  };
+
+  constructor(props) {
+    super(props);
+
+    this.history = createBrowserHistory();
+    this.history.listen(() => this.forceUpdate());
+  }
+
+  getChildContext() {
+    return {
+      history: this.history,
+      location: window.location
+    };
+  }
+
+  render() {
+    return this.props.children;
+  }
+}
+
+export class Redirect extends React.Component {
+  static contextTypes = {
+    history: PropTypes.object
+  };
+
+  componentDidMount() {
+    const history = this.context.history;
+    const to = this.props.to;
+    history.push(to);
+  }
+
+  render() {
+    return null;
+  }
+}

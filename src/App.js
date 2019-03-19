@@ -1,33 +1,37 @@
-import React, { Component } from 'react';
-import { Route, Link, history } from './components/Route'
+import React from "react";
+import {Redirect, Route, Link, Router} from "./components/Route"
 
-class App extends Component {
-    componentDidMount(){
-        history.listen(()=> this.forceUpdate())
-    }
+const App = () => (
+  <Router>
+    <div className="ui text container">
+      <h2 className="ui dividing header">Which body of water?</h2>
 
-    componentWillUnmount(){
-        history.listen(()=> this.forceUpdate())
-    }
+      <ul>
+        <li>
+          <Link to="/atlantic">
+            <code>/atlantic</code>
+          </Link>
+        </li>
+        <li>
+          <Link to="/pacific">
+            <code>/pacific</code>
+          </Link>
+        </li>
+        <li>
+          <Link to="/black-sea">
+            <code>/black-sea</code>
+          </Link>
+        </li>
+      </ul>
 
-  render() {
-      console.log("test")
-    return (
-      <div>
-        <center>
-          <h1>Welcome to BounceCode</h1>
-        </center>
+      <hr />
 
-         <ul> <li><Link to="/atlantic"><code>/atlantic</code></Link></li> </ul>
-         <ul> <li><Link to="/pacific"><code>/pacific</code></Link></li> </ul>
-
-         <Route path = "/atlantic" component={Atlantic}/>
-         <Route path = "/pacific" component={Pacific}/>
-      </div>
-    );
-  }
-}
-
+      <Route path="/atlantic" component={Atlantic} />
+      <Route path="/pacific" component={Pacific} />
+      <Route path="/black-sea" component={BlackSea} />
+    </div>
+  </Router>
+);
 
 const Atlantic = () => (
   <div>
@@ -48,6 +52,35 @@ const Pacific = () => (
   </div>
 );
 
+class BlackSea extends React.Component {
+  state = {
+    counter: 3
+  };
 
+  componentDidMount() {
+    this.interval = setInterval(
+      () =>
+        this.setState(prevState => {
+          return {
+            counter: prevState.counter - 1
+          };
+        }),
+      1000
+    );
+  }
+  componentWillUnmount() {
+    clearInterval(this.interval);
+  }
+  render() {
+    return (
+      <div>
+        <h3>Black Sea</h3>
+        <p>Nothing to sea [sic] here ...</p>
+        <p>Redirecting in {this.state.counter}...</p>
+        {this.state.counter < 1 ? <Redirect to="/" /> : null}
+      </div>
+    );
+  }
+}
 
 export default App;
