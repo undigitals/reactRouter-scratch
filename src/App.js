@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { Route, Link, history } from './components/Route'
 
-
-
-
 class App extends Component {
     componentDidMount(){
+        history.listen(()=> this.forceUpdate())
+    }
+
+    componentWillUnmount(){
         history.listen(()=> this.forceUpdate())
     }
 
@@ -19,7 +20,6 @@ class App extends Component {
 
          <ul> <li><Link to="/atlantic"><code>/atlantic</code></Link></li> </ul>
          <ul> <li><Link to="/pacific"><code>/pacific</code></Link></li> </ul>
-
 
          <Route path = "/atlantic" component={Atlantic}/>
          <Route path = "/pacific" component={Pacific}/>
